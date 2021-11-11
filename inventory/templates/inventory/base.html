@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'css/bootstrap.css' %}" rel="stylesheet" />
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<div class="content">
+    {% if user.is_authenticated %}
+    
+{% endif %}
+
+<h1 class="display-2 text-center"><a href="{% url 'home' %}" class="headline">Инвентарь</a></h1>
+    {% block header %}
+    {% endblock %}
+    {% url 'ingredientlist' as ingredientlist %}
+    {% url 'menuitemlist' as menuitemlist %}
+    {% url 'reciperequirementlist' as reciperequirementlist %}
+    {% url 'purchaselist' as purchaselist %}
+
+<header class="nav-menu d-flex justify-content-center py-3">
+    <ul class="nav nav-pills nav-font-size">
+    <li class="nav-item"><a href="{% url 'ingredientlist' %}" 
+    {% if request.path|slice:":11" == '/ingredient' %} 
+    class="nav-link active"
+    {% else %} class="nav-link" {% endif %}>Продукты</a></li>
+    <li class="nav-item"><a href="{% url 'menuitemlist' %}" 
+    {% if request.path|slice:":9" == '/menuitem'  %} 
+    class="nav-link active"
+    {% else %} 
+    class="nav-link" 
+    {% endif %}>Меню</a></li>
+    <li class="nav-item"><a href="{% url 'reciperequirementlist' %}" 
+    {% if request.path|slice:":18" ==  '/reciperequirement'  %} 
+    class="nav-link active"
+    {% else %} 
+    class="nav-link" 
+    {% endif %}>Рецепты</a></li>
+    <li class="nav-item"><a href="{% url 'purchaselist' %}" 
+    {% if request.path|slice:":9" == '/purchase'  %} 
+    class="nav-link active"
+    {% else %} 
+    class="nav-link" 
+    {% endif %}>Заказы</a></li>
+    </ul>
+    <div class="col-md-3 text-end"> <a href="{% url 'logout' %}" class="btn btn-primary">Выйти</a> </div>
+</header>
+
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+<footer>
+
+</footer>
+</html>
